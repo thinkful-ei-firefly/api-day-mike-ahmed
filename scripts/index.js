@@ -22,6 +22,11 @@ function main() {
     .then((items) => {
       items.forEach((item) => store.addItem(item));
       shoppingList.render();
+    })
+    .catch(error => {
+      console.error(error.message);
+      let msg = error.message;
+      alert(`${msg}`);
     });
 }
 

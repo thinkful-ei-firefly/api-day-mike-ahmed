@@ -8,8 +8,6 @@ const api = (function(){
 
   function getItems() {
     return fetch(`${BASE_URL}/items`);
-    // .then(response => response.json());
-    // .catch(error => console.log(error));
   }
 
   function createItem(name) {
