@@ -1,11 +1,9 @@
-//api.js
-
 'use strict';
 
 const api = (function(){
   
   const BASE_URL = 'https://thinkful-list-api.herokuapp.com/Ahmike';
-
+  
   function getItems() {
     return fetch(`${BASE_URL}/items`);
   }
