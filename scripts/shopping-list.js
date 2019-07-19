@@ -85,8 +85,12 @@ const shoppingList = (function(){
   function handleItemCheckClicked() {
     $('.js-shopping-list').on('click', '.js-item-toggle', event => {
       const id = getItemIdFromElement(event.currentTarget);
-      store.findAndToggleChecked(id);
-      render();
+      api.updateItem(id, {checked: !store.findById(id).checked})
+        .then(res => res.json())
+        .then(data => {
+          store.findAndUpdate(id, {checked: !store.findById(id).checked});
+          render();
+        });
     });
   }
   
@@ -95,10 +99,14 @@ const shoppingList = (function(){
     $('.js-shopping-list').on('click', '.js-item-delete', event => {
       // get the index of the item in store.items
       const id = getItemIdFromElement(event.currentTarget);
+      api.deleteItem(id)
+        .then(res => res.json())
+        .then(obj => {
+          store.findAndDelete(id);
+          render();
+        });
       // delete the item
-      store.findAndDelete(id);
       // render the updated shopping list
-      render();
     });
   }
   
@@ -107,9 +115,13 @@ const shoppingList = (function(){
       event.preventDefault();
       const id = getItemIdFromElement(event.currentTarget);
       const itemName = $(event.currentTarget).find('.shopping-item').val();
-      store.findAndUpdateName(id, itemName);
-      store.setItemIsEditing(id, false);
-      render();
+      api.updateItem(id, {name: itemName})
+        .then(res => res.json())
+        .then(obj => {
+          store.findAndUpdate(id, {name: itemName});
+          store.setItemIsEditing(id, false);
+          render();
+        });
     });
   }
   

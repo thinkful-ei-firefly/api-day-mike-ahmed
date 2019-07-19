@@ -7,7 +7,7 @@ const api = (function(){
   const BASE_URL = 'https://thinkful-list-api.herokuapp.com/Ahmike';
 
   function getItems() {
-    return fetch(`${BASE_URL}/items`)
+    return fetch(`${BASE_URL}/items`);
     // .then(response => response.json());
     // .catch(error => console.log(error));
   }
@@ -31,9 +31,18 @@ const api = (function(){
     });
   }
 
+  function deleteItem(id) {
+    return fetch(`${BASE_URL}/items/${id}`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
 
   return {
     getItems,
     createItem,
+    updateItem,
+    deleteItem,
   };
 }());
