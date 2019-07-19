@@ -1,6 +1,6 @@
 // index.js
 'use strict';
-/* global shoppingList, cuid, api*/
+/* global shoppingList, cuid, api, store, $*/
 
 // eslint-disable-next-line no-unused-vars
 // const store = {
@@ -24,7 +24,6 @@ function main() {
       shoppingList.render();
     });
 }
-
 
 
 $(main);
