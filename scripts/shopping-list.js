@@ -40,9 +40,19 @@ const shoppingList = (function(){
     return items.join('');
   }
   
-  
+  function handleError(err) {
+    store.updateError(err);
+    render();
+  }
+
   function render() {
+    let output = '';
     // Filter item list if store prop is true by item.checked === false
+    //check for error in store
+    //add error to render route
+    if (store.error) {
+      output = `<h1 style="color:red">${store.error.message}</h1>`;
+    }
     let items = [ ...store.items ];
     if (store.hideCheckedItems) {
       items = items.filter(item => !item.checked);
@@ -55,12 +65,11 @@ const shoppingList = (function(){
   
     // render the shopping list in the DOM
     console.log('`render` ran');
-    const shoppingListItemsString = generateShoppingItemsString(items);
+    output = output + generateShoppingItemsString(items);
   
     // insert that HTML into the DOM
-    $('.js-shopping-list').html(shoppingListItemsString);
+    $('.js-shopping-list').html(output);
   }
-  
   
   function handleNewItemSubmit() {
     $('#js-shopping-list-form').submit(function (event) {
@@ -156,11 +165,13 @@ const shoppingList = (function(){
     handleToggleFilterClick();
     handleShoppingListSearch();
     handleItemStartEditing();
+    handleError();
   }
 
   // This object contains the only exposed methods from this module:
   return {
-    render: render,
-    bindEventListeners: bindEventListeners,
+    render,
+    bindEventListeners,
+    handleError,
   };
 }());

@@ -32,6 +32,10 @@ const store = (function(){
     Object.assign(item, newData);
   };
 
+  const updateError = function(err) {
+    this.error = err;
+  };
+
   return {
     items: [],
     error: null,
@@ -45,6 +49,7 @@ const store = (function(){
     setSearchTerm,
     setItemIsEditing,
     findAndUpdate,
+    updateError,
   };
   
 }());
